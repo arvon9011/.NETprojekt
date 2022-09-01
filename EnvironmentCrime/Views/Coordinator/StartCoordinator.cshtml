@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = "_CoordinatorLayot";
+}
+
+@model IRepository
+
+<h2>Ärenden</h2>
+<p class="info">Du är inloggad som samordnare</p>
+
+<table id="managerForm">
+    <tr>
+        <td class="label">Välj status:</td>
+        <td class="label">Välj avdelning:</td>
+        <td>&nbsp;</td>
+        <td class="label">Ärendenummer:</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <select name="status">
+                <option>Välj Alla</option>
+
+                @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
+                {
+                    <option>@errandStatus.StatusName</option>
+                }
+            </select>
+        </td>
+        <td>
+            <select name="department">
+                <option>Välj Alla</option>
+
+                @foreach (Department department in Model.Departments)
+                {
+                    <option>@department.DepartmentName</option>
+                }
+            </select>
+        </td>
+        <td><input class="button" type="submit" value="Hämta lista" /></td>
+        <td><input name="casenumber" /></td>
+        <td><input class="button" type="submit" value="Sök" /></td>
+    </tr>
+</table>
+
+<!--Nedan ser man en lista på ärenden-->
+<table>
+    <tr>
+        <th>Ärende anmält</th>
+        <th>Ärendenummer</th>
+        <th>Miljöbrott</th>
+        <th>Status</th>
+        <th>Avdelning</th>
+        <th>Handläggare</th>
+    </tr>
+
+
+    @foreach (MyErrand errand in Model.CoordinatorInfo())
+    {
+        <tr>
+            <th>@errand.DateOfObservation.ToShortDateString()</th>
+            <th><a asp-controller="Coordinator" asp-action="CrimeCoordinator" asp-route-id="@errand.ErrandId">@errand.RefNumber</a></th>
+            <th>@errand.TypeOfCrime</th>
+            <th>@errand.StatusName</th>
+            <th>@errand.DepartmentName</th>
+            <th>@errand.EmployeeName</th>
+
+        </tr>
+    }
+
+
+
+
+</table>

@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "_CoordinatorLayot";
+}
+@await Component.InvokeAsync("Crime", ViewBag.ID)
+@model Department
+
+<section id="bottomColumn">
+    <h3>Redigera ärende</h3>
+    <p> Ange enhet:
+</p>
+        <form asp-controller="Coordinator" asp-action="UpdateDepartment" method="post">
+            <select asp-for="DepartmentID" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentID", "DepartmentName"))">
+                <option>Välj Avdelning</option>
+
+
+            </select>
+    <p><input class="button" type="submit" value="Spara" /></p>
+    </form>
+    
+
+
+</section>
+
